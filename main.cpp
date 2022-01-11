@@ -6,10 +6,7 @@
 #include "Coder.h"
 
 using namespace std;
-
-void Tests() {
-
-}
+using namespace std::chrono;
 
 int main(int argc, char ** argv) {
 	Coder coder;
@@ -41,8 +38,13 @@ int main(int argc, char ** argv) {
 		{
 			string cipher = "";
 			cin >> cipher;
-			cout << "Running ..." << endl;
-			cout << "Done: "
+			cout << "Running ... ";
+
+			auto start = high_resolution_clock::now();
+			string result = coder.Decode(cipher);
+			auto end = high_resolution_clock::now();
+
+			cout << "Done in " << (duration_cast<milliseconds>(end.time_since_epoch()) - duration_cast<milliseconds>(start.time_since_epoch())).count() << "ms:" << endl
 				 << coder.Decode(cipher) << endl;
 		}
 		else
